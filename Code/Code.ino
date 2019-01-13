@@ -10,24 +10,23 @@ void setup() {
   Serial.begin(9600);
 }
 
-void cw(int deg, int spd)
+void cw(int deg)
 {
-  servoH.writeMicroseconds(1500 - abs(spd/100.0*200.0));  // Clockwise
-  delay(500);
+  servoH.writeMicroseconds(1500 - abs(15/100.0*200.0));  // Clockwise
+  delay(double(deg)/360*4.0*1000);//One full rotation takes exactly 4s
   servoH.writeMicroseconds(1500);  // Stop
 }
 
-void ccw(int deg, int spd)
+void ccw(int deg)
 {
-  servoH.writeMicroseconds(1500 + abs(spd/100.0*200.0));  // Clockwise
-  delay(500);
+  servoH.writeMicroseconds(1500 + abs(15/100.0*200.0));  // Clockwise
+  delay(double(deg)/360*4.0*1000);//One full rotation takes exactly 4s
   servoH.writeMicroseconds(1500);  // Stop
 }
 
 void loop() {
+
+  cw(180);
+  ccw(180);
   
-  cw(10, 50);
-  delay(0);
-  ccw(10, 50);
-  delay(0);
 }
