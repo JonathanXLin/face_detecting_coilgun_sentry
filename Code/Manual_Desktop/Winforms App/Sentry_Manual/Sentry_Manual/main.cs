@@ -32,6 +32,7 @@ namespace Sentry_Manual
             if (e.KeyData == Keys.W)
             {
                 buttonUp.BackColor = Color.White;
+                up_press();
             }
             if (e.KeyData == Keys.A)
             {
@@ -61,7 +62,7 @@ namespace Sentry_Manual
 
         private void buttonUp_Click(object sender, EventArgs e)
         {
-
+            up_press();
         }
 
         private void buttonDown_Click(object sender, EventArgs e)

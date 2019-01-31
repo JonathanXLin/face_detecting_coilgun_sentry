@@ -45,9 +45,6 @@ void servo_setup()
   
   xServo.attach(xServoPin);
   yServo.attach(yServoPin);
-
-  xServo.write(90);
-  yServo.write(90);
 }
 
 int package = 0;//Raw RF data

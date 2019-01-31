@@ -81,6 +81,10 @@
             this.buttonUp.UseVisualStyleBackColor = true;
             this.buttonUp.Click += new System.EventHandler(this.buttonUp_Click);
             // 
+            // serialPortSentry
+            // 
+            this.serialPortSentry.PortName = "COM7";
+            // 
             // comboBoxSerialPort
             // 
             this.comboBoxSerialPort.FormattingEnabled = true;
