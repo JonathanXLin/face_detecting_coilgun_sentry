@@ -35,6 +35,7 @@
             this.buttonUp = new System.Windows.Forms.Button();
             this.serialPortSentry = new System.IO.Ports.SerialPort(this.components);
             this.comboBoxSerialPort = new System.Windows.Forms.ComboBox();
+            this.timerSerial = new System.Windows.Forms.Timer(this.components);
             this.SuspendLayout();
             // 
             // buttonDown
@@ -103,6 +104,12 @@
             this.comboBoxSerialPort.TabStop = false;
             this.comboBoxSerialPort.SelectedIndexChanged += new System.EventHandler(this.comboBoxSerialPort_SelectedIndexChanged);
             // 
+            // timerSerial
+            // 
+            this.timerSerial.Enabled = true;
+            this.timerSerial.Interval = 10;
+            this.timerSerial.Tick += new System.EventHandler(this.timerSerial_Tick);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -132,6 +139,7 @@
         private System.Windows.Forms.Button buttonUp;
         private System.IO.Ports.SerialPort serialPortSentry;
         private System.Windows.Forms.ComboBox comboBoxSerialPort;
+        private System.Windows.Forms.Timer timerSerial;
     }
 }
 

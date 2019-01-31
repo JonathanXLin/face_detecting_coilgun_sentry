@@ -14,7 +14,7 @@ void setup() {
   servo_setup();
 
   Serial.begin(9600);
-  Serial.println("Turret Initialized");
+  Serial.setTimeout(100);
 }
 
 void servo_setup()
@@ -25,10 +25,14 @@ void servo_setup()
 
 void loop() {
   loop_function();
-  delay(10);
 }
 
 void loop_function()
 {
-  xServo
+  String rawXString = Serial.readStringUntil('e');
+  rawXString.remove(rawXString.indexOf("e"));
+  int rawX = rawXString.toInt();
+  
+  //xServo.writeMicroseconds(1500 + (xState/100.0*xSensitivity));
+  yServo.writeMicroseconds(1500 + (rawX/100.0*ySensitivity));
 }
