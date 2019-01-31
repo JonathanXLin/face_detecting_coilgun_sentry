@@ -100,6 +100,7 @@
             this.comboBoxSerialPort.Name = "comboBoxSerialPort";
             this.comboBoxSerialPort.Size = new System.Drawing.Size(121, 21);
             this.comboBoxSerialPort.TabIndex = 4;
+            this.comboBoxSerialPort.TabStop = false;
             this.comboBoxSerialPort.SelectedIndexChanged += new System.EventHandler(this.comboBoxSerialPort_SelectedIndexChanged);
             // 
             // main

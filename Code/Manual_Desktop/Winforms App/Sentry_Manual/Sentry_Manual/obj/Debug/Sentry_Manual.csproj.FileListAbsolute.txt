@@ -8,3 +8,13 @@ C:\Users\Jonathan\Documents\GitHub\servo-mount\Code\Manual_Desktop\Winforms App\
 C:\Users\Jonathan\Documents\GitHub\servo-mount\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.csproj.CoreCompileInputs.cache
 C:\Users\Jonathan\Documents\GitHub\servo-mount\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.exe
 C:\Users\Jonathan\Documents\GitHub\servo-mount\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.pdb
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\bin\Debug\Sentry_Manual.exe.config
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\bin\Debug\Sentry_Manual.exe
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\bin\Debug\Sentry_Manual.pdb
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.csprojAssemblyReference.cache
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.main.resources
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.Properties.Resources.resources
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.csproj.GenerateResource.cache
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.csproj.CoreCompileInputs.cache
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.exe
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.pdb
