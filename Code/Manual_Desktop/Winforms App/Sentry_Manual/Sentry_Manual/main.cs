@@ -20,7 +20,7 @@ namespace Sentry_Manual
         String[] ports;
         SerialPort port;
 
-        int speed = 0;
+        int speed = 30;//Initial value reflected in scroll bar
 
         bool upKeyHold = false;
         bool downKeyHold = false;
@@ -57,7 +57,7 @@ namespace Sentry_Manual
 
             comboBoxPort.DropDownStyle = ComboBoxStyle.DropDownList;
 
-            hScrollBarSpeed.Value = 30;
+            hScrollBarSpeed.Value = 30;//Initial value
             speed = hScrollBarSpeed.Value + masterOffset;
 
             buttonUp.BackColor = default(Color);
@@ -111,7 +111,7 @@ namespace Sentry_Manual
 
                 if (speedIncrease && !speedDecrease)
                 {
-                    if (speed <= 100)
+                    if (hScrollBarSpeed.Value < 100)
                     {
                         speed += 1;
                         hScrollBarSpeed.Value += 1;
@@ -120,7 +120,7 @@ namespace Sentry_Manual
                 }
                 if (speedDecrease && !speedIncrease)
                 {
-                    if (speed >= 0)
+                    if (hScrollBarSpeed.Value > 0)
                     {
                         speed -= 1;
                         hScrollBarSpeed.Value -= 1;
@@ -277,6 +277,12 @@ namespace Sentry_Manual
         {
             Sentry___Calibration sentryCalibration = new Sentry___Calibration();
             sentryCalibration.ShowDialog();
+        }
+
+        private void buttonControls_Click(object sender, EventArgs e)
+        {
+            Sentry___Controls sentryControls = new Sentry___Controls();
+            sentryControls.ShowDialog();
         }
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)

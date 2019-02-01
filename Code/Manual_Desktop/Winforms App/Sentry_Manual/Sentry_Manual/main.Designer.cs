@@ -42,7 +42,7 @@
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
             this.groupBoxTurretSpeeds = new System.Windows.Forms.GroupBox();
             this.label7 = new System.Windows.Forms.Label();
-            this.button1 = new System.Windows.Forms.Button();
+            this.buttonControls = new System.Windows.Forms.Button();
             this.buttonCalibrate = new System.Windows.Forms.Button();
             this.groupBoxMovement.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
@@ -166,7 +166,7 @@
             // groupBoxTurretSpeeds
             // 
             this.groupBoxTurretSpeeds.Controls.Add(this.label7);
-            this.groupBoxTurretSpeeds.Controls.Add(this.button1);
+            this.groupBoxTurretSpeeds.Controls.Add(this.buttonControls);
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonCalibrate);
             this.groupBoxTurretSpeeds.Controls.Add(this.hScrollBarSpeed);
             this.groupBoxTurretSpeeds.Location = new System.Drawing.Point(12, 299);
@@ -186,24 +186,25 @@
             this.label7.Text = "Speed";
             this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // button1
+            // buttonControls
             // 
-            this.button1.Location = new System.Drawing.Point(106, 64);
-            this.button1.Margin = new System.Windows.Forms.Padding(2);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(86, 28);
-            this.button1.TabIndex = 13;
-            this.button1.Text = "[   ]";
-            this.button1.UseVisualStyleBackColor = true;
+            this.buttonControls.Location = new System.Drawing.Point(10, 65);
+            this.buttonControls.Margin = new System.Windows.Forms.Padding(2);
+            this.buttonControls.Name = "buttonControls";
+            this.buttonControls.Size = new System.Drawing.Size(86, 28);
+            this.buttonControls.TabIndex = 13;
+            this.buttonControls.Text = "Controls";
+            this.buttonControls.UseVisualStyleBackColor = true;
+            this.buttonControls.Click += new System.EventHandler(this.buttonControls_Click);
             // 
             // buttonCalibrate
             // 
-            this.buttonCalibrate.Location = new System.Drawing.Point(11, 64);
+            this.buttonCalibrate.Location = new System.Drawing.Point(105, 65);
             this.buttonCalibrate.Margin = new System.Windows.Forms.Padding(2);
             this.buttonCalibrate.Name = "buttonCalibrate";
             this.buttonCalibrate.Size = new System.Drawing.Size(86, 28);
             this.buttonCalibrate.TabIndex = 12;
-            this.buttonCalibrate.Text = "Calibrate";
+            this.buttonCalibrate.Text = "Calibration";
             this.buttonCalibrate.UseVisualStyleBackColor = true;
             this.buttonCalibrate.Click += new System.EventHandler(this.buttonCalibrate_Click);
             // 
@@ -245,7 +246,7 @@
         private System.Windows.Forms.GroupBox groupBoxMovement;
         private System.Windows.Forms.GroupBox groupBoxSerialConnection;
         private System.Windows.Forms.GroupBox groupBoxTurretSpeeds;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button buttonControls;
         private System.Windows.Forms.Button buttonCalibrate;
         private System.Windows.Forms.Label label7;
     }

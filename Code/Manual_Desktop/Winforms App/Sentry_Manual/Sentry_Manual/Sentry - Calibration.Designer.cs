@@ -206,7 +206,8 @@
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxVerticalServo);
             this.Name = "Sentry___Calibration";
-            this.Text = "Sentry___Calibration";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
+            this.Text = "Sentry - Calibration";
             this.Load += new System.EventHandler(this.Sentry___Calibration_Load);
             this.groupBoxVerticalServo.ResumeLayout(false);
             this.groupBoxVerticalServo.PerformLayout();

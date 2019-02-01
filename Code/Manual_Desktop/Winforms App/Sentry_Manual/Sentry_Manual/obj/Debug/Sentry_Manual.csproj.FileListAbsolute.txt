@@ -19,3 +19,4 @@ C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Win
 C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.exe
 C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.pdb
 C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.Sentry___Calibration.resources
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Code\Manual_Desktop\Winforms App\Sentry_Manual\Sentry_Manual\obj\Debug\Sentry_Manual.Sentry___Controls.resources

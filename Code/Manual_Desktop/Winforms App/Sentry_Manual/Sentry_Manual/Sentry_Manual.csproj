@@ -61,6 +61,12 @@
     <Compile Include="Sentry - Calibration.Designer.cs">
       <DependentUpon>Sentry - Calibration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Sentry - Controls.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Sentry - Controls.Designer.cs">
+      <DependentUpon>Sentry - Controls.cs</DependentUpon>
+    </Compile>
     <EmbeddedResource Include="main.resx">
       <DependentUpon>main.cs</DependentUpon>
     </EmbeddedResource>
@@ -75,6 +81,9 @@
     </Compile>
     <EmbeddedResource Include="Sentry - Calibration.resx">
       <DependentUpon>Sentry - Calibration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Sentry - Controls.resx">
+      <DependentUpon>Sentry - Controls.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
