@@ -41,9 +41,9 @@
             this.groupBoxMovement = new System.Windows.Forms.GroupBox();
             this.groupBoxSerialConnection = new System.Windows.Forms.GroupBox();
             this.groupBoxTurretSpeeds = new System.Windows.Forms.GroupBox();
+            this.label7 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.buttonCalibrate = new System.Windows.Forms.Button();
-            this.label7 = new System.Windows.Forms.Label();
             this.groupBoxMovement.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             this.groupBoxTurretSpeeds.SuspendLayout();
@@ -176,6 +176,16 @@
             this.groupBoxTurretSpeeds.TabStop = false;
             this.groupBoxTurretSpeeds.Text = "TurretSpeed";
             // 
+            // label7
+            // 
+            this.label7.AutoSize = true;
+            this.label7.Location = new System.Drawing.Point(84, 16);
+            this.label7.Name = "label7";
+            this.label7.Size = new System.Drawing.Size(38, 13);
+            this.label7.TabIndex = 12;
+            this.label7.Text = "Speed";
+            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
             // button1
             // 
             this.button1.Location = new System.Drawing.Point(106, 64);
@@ -197,16 +207,6 @@
             this.buttonCalibrate.UseVisualStyleBackColor = true;
             this.buttonCalibrate.Click += new System.EventHandler(this.buttonCalibrate_Click);
             // 
-            // label7
-            // 
-            this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(84, 16);
-            this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(38, 13);
-            this.label7.TabIndex = 12;
-            this.label7.Text = "Speed";
-            this.label7.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -218,6 +218,7 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "main";
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sentry - Control";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.main_FormClosing);
             this.Load += new System.EventHandler(this.main_Load);
