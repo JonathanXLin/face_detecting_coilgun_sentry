@@ -1,8 +1,8 @@
 //=============================SERVO================================
 #include <Servo.h>
 
-const int xServoPin = 5;//Horizontal servo
-const int yServoPin = 6;//Vertical servo
+const int xServoPin = 6;//Horizontal servo
+const int yServoPin = 7;//Vertical servo
 
 int xSensitivity = 40;
 int ySensitivity = 40;
