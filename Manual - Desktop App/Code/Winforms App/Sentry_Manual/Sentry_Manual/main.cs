@@ -19,13 +19,20 @@ namespace Sentry_Manual
 {
     public partial class main : Form
     {
+        //Camera variables
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
 
+        //Serial connection variables
         bool isConnected = false;
         String[] ports;
         SerialPort port;
 
+        string serialStringVertical = "";
+        string serialStringHorizontal = "";
+        string serialString = "";
+
+        //Turret variables
         int speed = 30;//Initial value reflected in scroll bar
 
         bool upKeyHold = false;
@@ -35,16 +42,13 @@ namespace Sentry_Manual
         bool speedIncrease = false;
         bool speedDecrease = false;
 
-        string serialStringVertical = "";
-        string serialStringHorizontal = "";
-        string serialString = "";
-
-        int masterOffset = 20;
+        int masterOffset = 10;
 
         public main()
         {
             InitializeComponent();
 
+            //Search for serial connections
             ports = SerialPort.GetPortNames();
             foreach (string port in ports)
             {
@@ -61,16 +65,18 @@ namespace Sentry_Manual
         {
             this.KeyPreview = true;
 
+            //Initialize object values
             comboBoxPort.DropDownStyle = ComboBoxStyle.DropDownList;
-
-            hScrollBarSpeed.Value = 30;//Initial value
+            hScrollBarSpeed.Value = 30;
             speed = hScrollBarSpeed.Value + masterOffset;
 
+            //Button animation effects
             buttonUp.BackColor = default(Color);
             buttonLeft.BackColor = default(Color);
             buttonDown.BackColor = default(Color);
             buttonRight.BackColor = default(Color);
 
+            //Restore calibration data from .txt file
             string calibrationData = File.ReadAllText("calibration_data.txt");
             string[] calibrationDataSplit = calibrationData.Split(' ');
 
@@ -82,7 +88,7 @@ namespace Sentry_Manual
             //Load video display
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
-            foreach(FilterInfo device in videoDevices)
+            foreach (FilterInfo device in videoDevices)
             {
                 comboBoxCamera.Items.Add(device.Name);
             }
@@ -305,6 +311,9 @@ namespace Sentry_Manual
 
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
+            if (videoSource.IsRunning)
+                videoSource.Stop();
+
             string fileName = "calibration_data.txt";
 
             try
@@ -342,7 +351,15 @@ namespace Sentry_Manual
             else
             {
                 videoSource = new VideoCaptureDevice(videoDevices[comboBoxCamera.SelectedIndex].MonikerString);
+                videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
+                videoSource.Start();
             }
+        }
+
+        void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
+        {
+            Bitmap image = (Bitmap)eventArgs.Frame.Clone();
+            pictureBoxCamera.Image = image;
         }
     }
 

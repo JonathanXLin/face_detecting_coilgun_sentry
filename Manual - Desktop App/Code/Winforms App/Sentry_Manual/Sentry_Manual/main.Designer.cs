@@ -224,21 +224,21 @@
             this.pictureBoxCamera.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             this.pictureBoxCamera.Location = new System.Drawing.Point(12, 12);
             this.pictureBoxCamera.Name = "pictureBoxCamera";
-            this.pictureBoxCamera.Size = new System.Drawing.Size(437, 183);
+            this.pictureBoxCamera.Size = new System.Drawing.Size(437, 252);
             this.pictureBoxCamera.TabIndex = 12;
             this.pictureBoxCamera.TabStop = false;
             // 
             // comboBoxCamera
             // 
             this.comboBoxCamera.FormattingEnabled = true;
-            this.comboBoxCamera.Location = new System.Drawing.Point(12, 211);
+            this.comboBoxCamera.Location = new System.Drawing.Point(45, 272);
             this.comboBoxCamera.Name = "comboBoxCamera";
             this.comboBoxCamera.Size = new System.Drawing.Size(121, 21);
             this.comboBoxCamera.TabIndex = 13;
             // 
             // buttonActivateCamera
             // 
-            this.buttonActivateCamera.Location = new System.Drawing.Point(161, 208);
+            this.buttonActivateCamera.Location = new System.Drawing.Point(176, 270);
             this.buttonActivateCamera.Name = "buttonActivateCamera";
             this.buttonActivateCamera.Size = new System.Drawing.Size(192, 23);
             this.buttonActivateCamera.TabIndex = 14;
