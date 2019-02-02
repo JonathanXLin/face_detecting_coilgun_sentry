@@ -28,13 +28,14 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Sentry___Calibration));
             this.hScrollBarYSpeedMultiplier = new System.Windows.Forms.HScrollBar();
             this.groupBoxVerticalServo = new System.Windows.Forms.GroupBox();
-            this.hScrollBarYTrim = new System.Windows.Forms.HScrollBar();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
-            this.labelSpeedMultiplierMarkings = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
+            this.labelSpeedMultiplierMarkings = new System.Windows.Forms.Label();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.hScrollBarYTrim = new System.Windows.Forms.HScrollBar();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -72,35 +73,15 @@
             this.groupBoxVerticalServo.TabStop = false;
             this.groupBoxVerticalServo.Text = "Vertical Servo";
             // 
-            // hScrollBarYTrim
+            // label3
             // 
-            this.hScrollBarYTrim.Location = new System.Drawing.Point(10, 100);
-            this.hScrollBarYTrim.Maximum = 50;
-            this.hScrollBarYTrim.Minimum = -50;
-            this.hScrollBarYTrim.Name = "hScrollBarYTrim";
-            this.hScrollBarYTrim.Size = new System.Drawing.Size(200, 17);
-            this.hScrollBarYTrim.TabIndex = 1;
-            this.hScrollBarYTrim.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBarYTrim_Scroll);
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(75, 20);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(82, 13);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Speed Multiplier";
-            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(100, 70);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(27, 13);
-            this.label2.TabIndex = 3;
-            this.label2.Text = "Trim";
-            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 83);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(170, 13);
+            this.label3.TabIndex = 5;
+            this.label3.Text = "Up                 Center             Down";
+            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // labelSpeedMultiplierMarkings
             // 
@@ -112,15 +93,35 @@
             this.labelSpeedMultiplierMarkings.Text = "0.5                    1                    1.5";
             this.labelSpeedMultiplierMarkings.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // label3
+            // label2
             // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(30, 83);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(170, 13);
-            this.label3.TabIndex = 5;
-            this.label3.Text = "Up                 Center             Down";
-            this.label3.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(100, 70);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(27, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Trim";
+            this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(75, 20);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(82, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Speed Multiplier";
+            this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            // 
+            // hScrollBarYTrim
+            // 
+            this.hScrollBarYTrim.Location = new System.Drawing.Point(10, 100);
+            this.hScrollBarYTrim.Maximum = 50;
+            this.hScrollBarYTrim.Minimum = -50;
+            this.hScrollBarYTrim.Name = "hScrollBarYTrim";
+            this.hScrollBarYTrim.Size = new System.Drawing.Size(200, 17);
+            this.hScrollBarYTrim.TabIndex = 1;
+            this.hScrollBarYTrim.Scroll += new System.Windows.Forms.ScrollEventHandler(this.hScrollBarYTrim_Scroll);
             // 
             // groupBox1
             // 
@@ -205,6 +206,7 @@
             this.ClientSize = new System.Drawing.Size(470, 152);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBoxVerticalServo);
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "Sentry___Calibration";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sentry - Calibration";

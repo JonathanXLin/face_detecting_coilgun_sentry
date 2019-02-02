@@ -12,10 +12,16 @@ using System.IO.Ports;
 using System.Management;
 using System.IO;
 
+using AForge.Video;
+using AForge.Video.DirectShow;
+
 namespace Sentry_Manual
 {
     public partial class main : Form
     {
+        private FilterInfoCollection videoDevices;
+        private VideoCaptureDevice videoSource;
+
         bool isConnected = false;
         String[] ports;
         SerialPort port;
@@ -72,11 +78,23 @@ namespace Sentry_Manual
             Globals.xTrim = Convert.ToDouble(calibrationDataSplit[1]);
             Globals.ySpeedMultiplier = Convert.ToDouble(calibrationDataSplit[2]);
             Globals.yTrim = Convert.ToDouble(calibrationDataSplit[3]);
+
+            //Load video display
+            videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
+
+            foreach(FilterInfo device in videoDevices)
+            {
+                comboBoxCamera.Items.Add(device.Name);
+            }
+
+            videoSource = new VideoCaptureDevice();
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
         {
-            if (!isConnected)
+            if (comboBoxPort.Items.Count == 0)
+            { }
+            else if (!isConnected)
             {
                 connectToArduino();
             }
@@ -311,6 +329,20 @@ namespace Sentry_Manual
             }
 
             Application.Exit();
+        }
+
+        private void buttonActivateCamera_Click(object sender, EventArgs e)
+        {
+            if (videoSource.IsRunning)
+            {
+                videoSource.Stop();
+                pictureBoxCamera.Image = null;
+                pictureBoxCamera.Invalidate();
+            }
+            else
+            {
+                videoSource = new VideoCaptureDevice(videoDevices[comboBoxCamera.SelectedIndex].MonikerString);
+            }
         }
     }
 

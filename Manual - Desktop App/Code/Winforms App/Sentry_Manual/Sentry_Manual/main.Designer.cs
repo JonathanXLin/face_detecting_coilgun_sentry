@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(main));
             this.buttonDown = new System.Windows.Forms.Button();
             this.buttonRight = new System.Windows.Forms.Button();
             this.buttonLeft = new System.Windows.Forms.Button();
@@ -44,9 +45,13 @@
             this.label7 = new System.Windows.Forms.Label();
             this.buttonControls = new System.Windows.Forms.Button();
             this.buttonCalibrate = new System.Windows.Forms.Button();
+            this.pictureBoxCamera = new System.Windows.Forms.PictureBox();
+            this.comboBoxCamera = new System.Windows.Forms.ComboBox();
+            this.buttonActivateCamera = new System.Windows.Forms.Button();
             this.groupBoxMovement.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             this.groupBoxTurretSpeeds.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonDown
@@ -137,6 +142,7 @@
             // 
             // groupBoxMovement
             // 
+            this.groupBoxMovement.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxMovement.Controls.Add(this.buttonDown);
             this.groupBoxMovement.Controls.Add(this.buttonUp);
             this.groupBoxMovement.Controls.Add(this.buttonRight);
@@ -152,6 +158,7 @@
             // 
             // groupBoxSerialConnection
             // 
+            this.groupBoxSerialConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxSerialConnection.Controls.Add(this.buttonConnect);
             this.groupBoxSerialConnection.Controls.Add(this.comboBoxPort);
             this.groupBoxSerialConnection.Location = new System.Drawing.Point(12, 408);
@@ -165,6 +172,7 @@
             // 
             // groupBoxTurretSpeeds
             // 
+            this.groupBoxTurretSpeeds.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxTurretSpeeds.Controls.Add(this.label7);
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonControls);
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonCalibrate);
@@ -208,15 +216,48 @@
             this.buttonCalibrate.UseVisualStyleBackColor = true;
             this.buttonCalibrate.Click += new System.EventHandler(this.buttonCalibrate_Click);
             // 
+            // pictureBoxCamera
+            // 
+            this.pictureBoxCamera.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.pictureBoxCamera.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            this.pictureBoxCamera.Location = new System.Drawing.Point(12, 12);
+            this.pictureBoxCamera.Name = "pictureBoxCamera";
+            this.pictureBoxCamera.Size = new System.Drawing.Size(437, 183);
+            this.pictureBoxCamera.TabIndex = 12;
+            this.pictureBoxCamera.TabStop = false;
+            // 
+            // comboBoxCamera
+            // 
+            this.comboBoxCamera.FormattingEnabled = true;
+            this.comboBoxCamera.Location = new System.Drawing.Point(12, 211);
+            this.comboBoxCamera.Name = "comboBoxCamera";
+            this.comboBoxCamera.Size = new System.Drawing.Size(121, 21);
+            this.comboBoxCamera.TabIndex = 13;
+            // 
+            // buttonActivateCamera
+            // 
+            this.buttonActivateCamera.Location = new System.Drawing.Point(161, 208);
+            this.buttonActivateCamera.Name = "buttonActivateCamera";
+            this.buttonActivateCamera.Size = new System.Drawing.Size(192, 23);
+            this.buttonActivateCamera.TabIndex = 14;
+            this.buttonActivateCamera.Text = "Camera Connect/Disconnect";
+            this.buttonActivateCamera.UseVisualStyleBackColor = true;
+            this.buttonActivateCamera.Click += new System.EventHandler(this.buttonActivateCamera_Click);
+            // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(461, 477);
+            this.Controls.Add(this.buttonActivateCamera);
+            this.Controls.Add(this.comboBoxCamera);
+            this.Controls.Add(this.pictureBoxCamera);
             this.Controls.Add(this.groupBoxTurretSpeeds);
             this.Controls.Add(this.groupBoxSerialConnection);
             this.Controls.Add(this.groupBoxMovement);
-            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
@@ -229,6 +270,7 @@
             this.groupBoxSerialConnection.ResumeLayout(false);
             this.groupBoxTurretSpeeds.ResumeLayout(false);
             this.groupBoxTurretSpeeds.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -249,6 +291,9 @@
         private System.Windows.Forms.Button buttonControls;
         private System.Windows.Forms.Button buttonCalibrate;
         private System.Windows.Forms.Label label7;
+        private System.Windows.Forms.PictureBox pictureBoxCamera;
+        private System.Windows.Forms.ComboBox comboBoxCamera;
+        private System.Windows.Forms.Button buttonActivateCamera;
     }
 }
 
