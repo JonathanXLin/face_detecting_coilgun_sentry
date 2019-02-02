@@ -11,6 +11,7 @@ using System.Diagnostics;
 using System.IO.Ports;
 using System.Management;
 using System.IO;
+using System.Threading;
 
 using AForge.Video;
 using AForge.Video.DirectShow;
@@ -93,7 +94,29 @@ namespace Sentry_Manual
                 comboBoxCamera.Items.Add(device.Name);
             }
 
+            if (comboBoxCamera.Items.Count != 0)
+            {
+                comboBoxCamera.SelectedIndex = 0;
+            }
+
             videoSource = new VideoCaptureDevice();
+
+            videoSource = new VideoCaptureDevice(videoDevices[comboBoxCamera.SelectedIndex].MonikerString);
+
+            for (int i = 0; i < videoSource.VideoCapabilities.Length; i++)
+            {
+                String rawResInfo = videoSource.VideoCapabilities[i].FrameSize.ToString();
+                String resInfo = rawResInfo.Split('=', ',')[1] + " x " + String.Concat(rawResInfo.Split('=', ',')[3].Reverse().Skip(1).Reverse());
+                comboBoxCameraResolutions.Items.Add(resInfo);
+            }
+
+            if (comboBoxCameraResolutions.Items.Count != 0)
+            {
+                comboBoxCameraResolutions.SelectedIndex = 0;
+
+                videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
+                videoSource.Start();
+            }
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -116,14 +139,14 @@ namespace Sentry_Manual
             string selectedPort = comboBoxPort.GetItemText(comboBoxPort.SelectedItem);
             port = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
             port.Open();
-            buttonConnect.Text = "Disconnect";
+            buttonSerialConnect.Text = "Disconnect";
         }
 
         private void disconnectFromArduino()
         {
             isConnected = false;
             port.Close();
-            buttonConnect.Text = "Connect";
+            buttonSerialConnect.Text = "Connect";
         }
 
         private void timerSerial_Tick(object sender, EventArgs e)
@@ -360,6 +383,16 @@ namespace Sentry_Manual
         {
             Bitmap image = (Bitmap)eventArgs.Frame.Clone();
             pictureBoxCamera.Image = image;
+        }
+
+        private void comboBoxCameraResolutions_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            videoSource.Stop();
+            videoSource.VideoResolution = videoSource.VideoCapabilities[comboBoxCameraResolutions.SelectedIndex];
+
+            pictureBoxCamera.Size = new Size(Convert.ToInt32(comboBoxCameraResolutions.SelectedItem.ToString().Split(' ')[0]), Convert.ToInt32(comboBoxCameraResolutions.SelectedItem.ToString().Split(' ')[2]));
+
+            videoSource.Start();
         }
     }
 
