@@ -29,6 +29,7 @@ namespace Sentry_Manual
         private VideoCaptureDevice videoSource;
         bool isConnectedCamera;
         int cameraNumber;
+        int verticalRes, horizontalRes;
 
         //Serial connection variables
         bool isConnectedSerial = false;
@@ -126,9 +127,28 @@ namespace Sentry_Manual
                 labelNoConnection.Refresh();
             }
 
+            create_camera_thread();
+        }
+
+        void create_camera_thread()
+        {
             new Thread(() =>
             {
                 var vc = new Capture(cameraNumber);
+
+                if (!IsDisposed)
+                {
+                    imageBoxCamera.Image = null;
+                    BeginInvoke((MethodInvoker)(() =>
+                    {
+                        horizontalRes = vc.Width / 2;
+                        imageBoxCamera.Width = horizontalRes;
+                        verticalRes = vc.Height / 2;
+                        imageBoxCamera.Height = verticalRes;
+
+                        MessageBox.Show(horizontalRes.ToString() + " " + verticalRes.ToString());
+                    }));
+                }
 
                 int totalFrames = (int)vc.GetCaptureProperty(CapProp.FrameCount);
                 UMat lastFrame = null;
@@ -457,54 +477,23 @@ namespace Sentry_Manual
             }
             else
             {
-                new Thread(() =>
-                {
-                    var vc = new Capture(cameraNumber);
-
-                    int totalFrames = (int)vc.GetCaptureProperty(CapProp.FrameCount);
-                    UMat lastFrame = null;
-                    Mat frame;
-
-                    while ((frame = vc.QuerySmallFrame()) != null && !IsDisposed && !disconnectCamera)
-                    {
-                        lastFrame?.Dispose();
-                        lastFrame = frame.ToUMat(AccessType.Fast);
-                        frame.Dispose();
-
-                        draw_face_box(lastFrame, 1.1, 10);
-
-                        try
-                        {
-                            imageBoxCamera.Image = lastFrame;
-                        }
-                        catch (Exception f)
-                        { }
-                    }
-                    lastFrame?.Dispose();
-                    vc.Stop();
-                    vc.Dispose();
-                    if (!IsDisposed)
-                    {
-                        imageBoxCamera.Image = null;
-                        BeginInvoke((MethodInvoker)(() =>
-                        {
-                            labelNoConnection.Visible = true;
-                        }));
-                    }
-                }).Start();
-
-                disconnectCamera = false;
-                isConnectedCamera = true;
-
-                labelNoConnection.Visible = false;
+                create_camera_thread();
             }
         }
 
         CascadeClassifier classifier = new CascadeClassifier(Application.StartupPath + "/haarcascade_frontalface_default.xml");
 
+        private void comboBoxCamera_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            cameraNumber = comboBoxCamera.SelectedIndex;
+        }
+
         private void comboBoxCameraResolutions_SelectedIndexChanged(object sender, EventArgs e)
         {
+            disconnectCamera = true;
+            isConnectedCamera = false;
 
+            create_camera_thread();
         }
     }
 

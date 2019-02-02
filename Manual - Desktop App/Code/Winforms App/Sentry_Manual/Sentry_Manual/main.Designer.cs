@@ -226,6 +226,7 @@
             this.comboBoxCamera.Name = "comboBoxCamera";
             this.comboBoxCamera.Size = new System.Drawing.Size(115, 21);
             this.comboBoxCamera.TabIndex = 13;
+            this.comboBoxCamera.SelectedIndexChanged += new System.EventHandler(this.comboBoxCamera_SelectedIndexChanged);
             // 
             // buttonActivateCamera
             // 
