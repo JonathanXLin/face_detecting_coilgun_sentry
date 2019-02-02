@@ -13,6 +13,10 @@ using System.Management;
 using System.IO;
 using System.Threading;
 
+using Emgu.CV;
+using Emgu.CV.CvEnum;
+using Emgu.CV.Structure;
+
 using AForge.Video;
 using AForge.Video.DirectShow;
 
@@ -23,9 +27,11 @@ namespace Sentry_Manual
         //Camera variables
         private FilterInfoCollection videoDevices;
         private VideoCaptureDevice videoSource;
+        bool isConnectedCamera;
+        int cameraNumber;
 
         //Serial connection variables
-        bool isConnected = false;
+        bool isConnectedSerial = false;
         String[] ports;
         SerialPort port;
 
@@ -86,7 +92,7 @@ namespace Sentry_Manual
             Globals.ySpeedMultiplier = Convert.ToDouble(calibrationDataSplit[2]);
             Globals.yTrim = Convert.ToDouble(calibrationDataSplit[3]);
 
-            //Load video display
+            //Load connected webcam data
             videoDevices = new FilterInfoCollection(FilterCategory.VideoInputDevice);
 
             foreach (FilterInfo device in videoDevices)
@@ -99,23 +105,103 @@ namespace Sentry_Manual
                 comboBoxCamera.SelectedIndex = 0;
             }
 
-            videoSource = new VideoCaptureDevice();
-
-            videoSource = new VideoCaptureDevice(videoDevices[comboBoxCamera.SelectedIndex].MonikerString);
-
-            for (int i = 0; i < videoSource.VideoCapabilities.Length; i++)
+            bool noCameras = false;
+            try
             {
-                String rawResInfo = videoSource.VideoCapabilities[i].FrameSize.ToString();
-                String resInfo = rawResInfo.Split('=', ',')[1] + " x " + String.Concat(rawResInfo.Split('=', ',')[3].Reverse().Skip(1).Reverse());
-                comboBoxCameraResolutions.Items.Add(resInfo);
+                videoSource = new VideoCaptureDevice(videoDevices[comboBoxCamera.SelectedIndex].MonikerString);
+            }
+            catch
+            {
+                noCameras = true;
             }
 
-            if (comboBoxCameraResolutions.Items.Count != 0)
+            if (!noCameras)
             {
-                comboBoxCameraResolutions.SelectedIndex = 0;
+                labelNoConnection.Visible = false;
+                labelNoConnection.Refresh();
+            }
+            else
+            {
+                labelNoConnection.Visible = true;
+                labelNoConnection.Refresh();
+            }
 
-                videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
-                videoSource.Start();
+            new Thread(() =>
+            {
+                var vc = new Capture(cameraNumber);
+
+                int totalFrames = (int)vc.GetCaptureProperty(CapProp.FrameCount);
+                UMat lastFrame = null;
+                Mat frame;
+
+                while ((frame = vc.QuerySmallFrame()) != null && !IsDisposed && !disconnectCamera)
+                {
+                    lastFrame?.Dispose();
+                    lastFrame = frame.ToUMat(AccessType.Fast);
+                    frame.Dispose();
+
+                    draw_face_box(lastFrame, 1.1, 10);
+
+                    try
+                    {
+                        imageBoxCamera.Image = lastFrame;
+                    }
+                    catch (Exception f)
+                    { }
+                }
+                lastFrame?.Dispose();
+                vc.Stop();
+                vc.Dispose();
+                if (!IsDisposed)
+                {
+                    imageBoxCamera.Image = null;
+                    BeginInvoke((MethodInvoker)(() =>
+                    {
+                        labelNoConnection.Visible = true;
+                    }));
+                }
+            }).Start();
+
+            disconnectCamera = false;
+            isConnectedCamera = true;
+
+            labelNoConnection.Visible = false;
+        }
+
+        private void draw_face_box(UMat source, double scale, int sensitivity)
+        {
+            var adjustment = new RectangleF(1f / 8, 1f / 8, 6f / 8, 6f / 8);
+            var faces = classifier.DetectMultiScale(source, scale, sensitivity, Size.Empty);
+
+            foreach (var face in faces)
+            {
+                Rectangle adjusted = new Rectangle(
+                    (int)(face.X + face.Width * adjustment.X), (int)(face.Y + face.Height * adjustment.Y),
+                    (int)(face.Width * adjustment.Width), (int)(face.Height * adjustment.Height));
+
+                using (var resizedOverlay = new UMat())
+                {
+                    using (var addableOverlay = new UMat())
+                    {
+                        //CvInvoke.CvtColor(resizedOverlay, addableOverlay, ColorConversion.Bgra2Bgr);
+
+                        CvInvoke.Rectangle(source, adjusted, new MCvScalar(255,0,0,255), 2,LineType.EightConnected, 0);
+                        CvInvoke.Line(source, new Point(0, 0), new Point(face.X + face.Width/2, face.Y + face.Width/2), new MCvScalar(255, 0, 0, 255), 2, LineType.EightConnected, 0);
+                        //using (var overlayAlphaChannel = new UMat())
+                        //{
+                        //    CvInvoke.ExtractChannel(resizedOverlay, overlayAlphaChannel, 3);
+
+                        //    using (var roi = new UMat(source, adjusted))
+                        //    {
+                        //        var k = adjusted.Width / 8;
+                        //        if (k % 2 == 0) k++;
+                        //        CvInvoke.GaussianBlur(roi, roi, new Size(k, k), 0, 0, BorderType.Reflect101);
+                        //        roi.SetTo(new MCvScalar(0, 0, 0), overlayAlphaChannel);
+                        //        CvInvoke.Add(roi, addableOverlay, roi, overlayAlphaChannel);
+                        //    }
+                        //}
+                    }
+                }
             }
         }
 
@@ -123,7 +209,7 @@ namespace Sentry_Manual
         {
             if (comboBoxPort.Items.Count == 0)
             { }
-            else if (!isConnected)
+            else if (!isConnectedSerial)
             {
                 connectToArduino();
             }
@@ -135,7 +221,7 @@ namespace Sentry_Manual
 
         private void connectToArduino()
         {
-            isConnected = true;
+            isConnectedSerial = true;
             string selectedPort = comboBoxPort.GetItemText(comboBoxPort.SelectedItem);
             port = new SerialPort(selectedPort, 9600, Parity.None, 8, StopBits.One);
             port.Open();
@@ -144,14 +230,14 @@ namespace Sentry_Manual
 
         private void disconnectFromArduino()
         {
-            isConnected = false;
+            isConnectedSerial = false;
             port.Close();
             buttonSerialConnect.Text = "Connect";
         }
 
         private void timerSerial_Tick(object sender, EventArgs e)
         {
-            if (isConnected)
+            if (isConnectedSerial)
             {
                 serialStringHorizontal = "0";
                 serialStringVertical = "0";
@@ -199,7 +285,7 @@ namespace Sentry_Manual
 
         private void main_KeyDown(object sender, KeyEventArgs e)
         {
-            if (isConnected)
+            if (isConnectedSerial)
             {
                 if (e.KeyData == Keys.W)
                 {
@@ -238,7 +324,7 @@ namespace Sentry_Manual
 
         private void main_KeyUp(object sender, KeyEventArgs e)
         {
-            if (isConnected)
+            if (isConnectedSerial)
             {
                 if (e.KeyData == Keys.W)
                 {
@@ -331,12 +417,9 @@ namespace Sentry_Manual
             Sentry___Controls sentryControls = new Sentry___Controls();
             sentryControls.ShowDialog();
         }
-
+        
         private void main_FormClosing(object sender, FormClosingEventArgs e)
         {
-            if (videoSource.IsRunning)
-                videoSource.Stop();
-
             string fileName = "calibration_data.txt";
 
             try
@@ -363,36 +446,65 @@ namespace Sentry_Manual
             Application.Exit();
         }
 
+        Boolean disconnectCamera = false;
+
         private void buttonActivateCamera_Click(object sender, EventArgs e)
         {
-            if (videoSource.IsRunning)
+            if (isConnectedCamera)
             {
-                videoSource.Stop();
-                pictureBoxCamera.Image = null;
-                pictureBoxCamera.Invalidate();
+                disconnectCamera = true;
+                isConnectedCamera = false;
             }
             else
             {
-                videoSource = new VideoCaptureDevice(videoDevices[comboBoxCamera.SelectedIndex].MonikerString);
-                videoSource.NewFrame += new NewFrameEventHandler(VideoSource_NewFrame);
-                videoSource.Start();
+                new Thread(() =>
+                {
+                    var vc = new Capture(cameraNumber);
+
+                    int totalFrames = (int)vc.GetCaptureProperty(CapProp.FrameCount);
+                    UMat lastFrame = null;
+                    Mat frame;
+
+                    while ((frame = vc.QuerySmallFrame()) != null && !IsDisposed && !disconnectCamera)
+                    {
+                        lastFrame?.Dispose();
+                        lastFrame = frame.ToUMat(AccessType.Fast);
+                        frame.Dispose();
+
+                        draw_face_box(lastFrame, 1.1, 10);
+
+                        try
+                        {
+                            imageBoxCamera.Image = lastFrame;
+                        }
+                        catch (Exception f)
+                        { }
+                    }
+                    lastFrame?.Dispose();
+                    vc.Stop();
+                    vc.Dispose();
+                    if (!IsDisposed)
+                    {
+                        imageBoxCamera.Image = null;
+                        BeginInvoke((MethodInvoker)(() =>
+                        {
+                            labelNoConnection.Visible = true;
+                        }));
+                    }
+                }).Start();
+
+                disconnectCamera = false;
+                isConnectedCamera = true;
+
+                labelNoConnection.Visible = false;
             }
         }
 
-        void VideoSource_NewFrame(object sender, NewFrameEventArgs eventArgs)
-        {
-            Bitmap image = (Bitmap)eventArgs.Frame.Clone();
-            pictureBoxCamera.Image = image;
-        }
+        CascadeClassifier classifier = new CascadeClassifier(Application.StartupPath + "/haarcascade_frontalface_default.xml");
 
         private void comboBoxCameraResolutions_SelectedIndexChanged(object sender, EventArgs e)
         {
-            videoSource.Stop();
-            videoSource.VideoResolution = videoSource.VideoCapabilities[comboBoxCameraResolutions.SelectedIndex];
 
-            pictureBoxCamera.Size = new Size(Convert.ToInt32(comboBoxCameraResolutions.SelectedItem.ToString().Split(' ')[0]), Convert.ToInt32(comboBoxCameraResolutions.SelectedItem.ToString().Split(' ')[2]));
-
-            videoSource.Start();
         }
     }
 

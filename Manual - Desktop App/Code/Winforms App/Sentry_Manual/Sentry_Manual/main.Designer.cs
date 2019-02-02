@@ -45,16 +45,16 @@
             this.label7 = new System.Windows.Forms.Label();
             this.buttonControls = new System.Windows.Forms.Button();
             this.buttonCalibrate = new System.Windows.Forms.Button();
-            this.pictureBoxCamera = new System.Windows.Forms.PictureBox();
             this.comboBoxCamera = new System.Windows.Forms.ComboBox();
             this.buttonActivateCamera = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.comboBoxCameraResolutions = new System.Windows.Forms.ComboBox();
+            this.imageBoxCamera = new Emgu.CV.UI.ImageBox();
+            this.labelNoConnection = new System.Windows.Forms.Label();
             this.groupBoxMovement.SuspendLayout();
             this.groupBoxSerialConnection.SuspendLayout();
             this.groupBoxTurretSpeeds.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera)).BeginInit();
             this.groupBox1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.imageBoxCamera)).BeginInit();
             this.SuspendLayout();
             // 
             // buttonDown
@@ -150,7 +150,7 @@
             this.groupBoxMovement.Controls.Add(this.buttonUp);
             this.groupBoxMovement.Controls.Add(this.buttonRight);
             this.groupBoxMovement.Controls.Add(this.buttonLeft);
-            this.groupBoxMovement.Location = new System.Drawing.Point(537, 531);
+            this.groupBoxMovement.Location = new System.Drawing.Point(476, 376);
             this.groupBoxMovement.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxMovement.Name = "groupBoxMovement";
             this.groupBoxMovement.Padding = new System.Windows.Forms.Padding(2);
@@ -164,7 +164,7 @@
             this.groupBoxSerialConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxSerialConnection.Controls.Add(this.buttonSerialConnect);
             this.groupBoxSerialConnection.Controls.Add(this.comboBoxPort);
-            this.groupBoxSerialConnection.Location = new System.Drawing.Point(259, 640);
+            this.groupBoxSerialConnection.Location = new System.Drawing.Point(198, 485);
             this.groupBoxSerialConnection.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSerialConnection.Name = "groupBoxSerialConnection";
             this.groupBoxSerialConnection.Padding = new System.Windows.Forms.Padding(2);
@@ -180,7 +180,7 @@
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonControls);
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonCalibrate);
             this.groupBoxTurretSpeeds.Controls.Add(this.hScrollBarSpeed);
-            this.groupBoxTurretSpeeds.Location = new System.Drawing.Point(259, 531);
+            this.groupBoxTurretSpeeds.Location = new System.Drawing.Point(198, 376);
             this.groupBoxTurretSpeeds.Name = "groupBoxTurretSpeeds";
             this.groupBoxTurretSpeeds.Size = new System.Drawing.Size(265, 104);
             this.groupBoxTurretSpeeds.TabIndex = 11;
@@ -219,30 +219,19 @@
             this.buttonCalibrate.UseVisualStyleBackColor = true;
             this.buttonCalibrate.Click += new System.EventHandler(this.buttonCalibrate_Click);
             // 
-            // pictureBoxCamera
-            // 
-            this.pictureBoxCamera.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.pictureBoxCamera.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.pictureBoxCamera.Location = new System.Drawing.Point(10, 10);
-            this.pictureBoxCamera.Name = "pictureBoxCamera";
-            this.pictureBoxCamera.Size = new System.Drawing.Size(750, 500);
-            this.pictureBoxCamera.TabIndex = 12;
-            this.pictureBoxCamera.TabStop = false;
-            // 
             // comboBoxCamera
             // 
             this.comboBoxCamera.FormattingEnabled = true;
-            this.comboBoxCamera.Location = new System.Drawing.Point(19, 35);
+            this.comboBoxCamera.Location = new System.Drawing.Point(10, 102);
             this.comboBoxCamera.Name = "comboBoxCamera";
             this.comboBoxCamera.Size = new System.Drawing.Size(115, 21);
             this.comboBoxCamera.TabIndex = 13;
             // 
             // buttonActivateCamera
             // 
-            this.buttonActivateCamera.Location = new System.Drawing.Point(19, 62);
+            this.buttonActivateCamera.Location = new System.Drawing.Point(10, 129);
             this.buttonActivateCamera.Name = "buttonActivateCamera";
-            this.buttonActivateCamera.Size = new System.Drawing.Size(183, 28);
+            this.buttonActivateCamera.Size = new System.Drawing.Size(155, 28);
             this.buttonActivateCamera.TabIndex = 14;
             this.buttonActivateCamera.Text = "Camera Connect/Disconnect";
             this.buttonActivateCamera.UseVisualStyleBackColor = true;
@@ -251,39 +240,49 @@
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.comboBoxCameraResolutions);
             this.groupBox1.Controls.Add(this.buttonActivateCamera);
             this.groupBox1.Controls.Add(this.comboBoxCamera);
-            this.groupBox1.Location = new System.Drawing.Point(26, 531);
+            this.groupBox1.Location = new System.Drawing.Point(11, 376);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(220, 167);
+            this.groupBox1.Size = new System.Drawing.Size(174, 167);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Camera Connection";
             // 
-            // comboBoxCameraResolutions
+            // imageBoxCamera
             // 
-            this.comboBoxCameraResolutions.FormattingEnabled = true;
-            this.comboBoxCameraResolutions.Location = new System.Drawing.Point(19, 96);
-            this.comboBoxCameraResolutions.Name = "comboBoxCameraResolutions";
-            this.comboBoxCameraResolutions.Size = new System.Drawing.Size(183, 21);
-            this.comboBoxCameraResolutions.TabIndex = 15;
-            this.comboBoxCameraResolutions.SelectedIndexChanged += new System.EventHandler(this.comboBoxCameraResolutions_SelectedIndexChanged);
+            this.imageBoxCamera.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.imageBoxCamera.Location = new System.Drawing.Point(12, 12);
+            this.imageBoxCamera.Name = "imageBoxCamera";
+            this.imageBoxCamera.Size = new System.Drawing.Size(686, 358);
+            this.imageBoxCamera.TabIndex = 2;
+            this.imageBoxCamera.TabStop = false;
+            // 
+            // labelNoConnection
+            // 
+            this.labelNoConnection.AutoSize = true;
+            this.labelNoConnection.Location = new System.Drawing.Point(13, 13);
+            this.labelNoConnection.Name = "labelNoConnection";
+            this.labelNoConnection.Size = new System.Drawing.Size(78, 13);
+            this.labelNoConnection.TabIndex = 12;
+            this.labelNoConnection.Text = "No Connection";
             // 
             // main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(771, 709);
+            this.ClientSize = new System.Drawing.Size(710, 554);
+            this.Controls.Add(this.labelNoConnection);
+            this.Controls.Add(this.imageBoxCamera);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.pictureBoxCamera);
             this.Controls.Add(this.groupBoxTurretSpeeds);
             this.Controls.Add(this.groupBoxSerialConnection);
             this.Controls.Add(this.groupBoxMovement);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MaximizeBox = false;
             this.Name = "main";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Sentry - Control";
@@ -295,9 +294,10 @@
             this.groupBoxSerialConnection.ResumeLayout(false);
             this.groupBoxTurretSpeeds.ResumeLayout(false);
             this.groupBoxTurretSpeeds.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBoxCamera)).EndInit();
             this.groupBox1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.imageBoxCamera)).EndInit();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -317,11 +317,11 @@
         private System.Windows.Forms.Button buttonControls;
         private System.Windows.Forms.Button buttonCalibrate;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.PictureBox pictureBoxCamera;
         private System.Windows.Forms.ComboBox comboBoxCamera;
         private System.Windows.Forms.Button buttonActivateCamera;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox comboBoxCameraResolutions;
+        private Emgu.CV.UI.ImageBox imageBoxCamera;
+        private System.Windows.Forms.Label labelNoConnection;
     }
 }
 
