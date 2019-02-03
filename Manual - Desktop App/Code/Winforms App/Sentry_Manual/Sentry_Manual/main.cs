@@ -130,66 +130,6 @@ namespace Sentry_Manual
             create_camera_thread();
         }
 
-        void create_camera_thread()
-        {
-            new Thread(() =>
-            {
-                var vc = new Capture(cameraNumber);
-
-                if (!IsDisposed)
-                {
-                    imageBoxCamera.Image = null;
-                    BeginInvoke((MethodInvoker)(() =>
-                    {
-                        horizontalRes = vc.Width / 2;
-                        imageBoxCamera.Width = horizontalRes;
-                        verticalRes = vc.Height / 2;
-                        imageBoxCamera.Height = verticalRes;
-
-                        //MessageBox.Show(horizontalRes.ToString() + " " + verticalRes.ToString());
-                    }));
-                }
-
-                int totalFrames = (int)vc.GetCaptureProperty(CapProp.FrameCount);
-                UMat lastFrame = null;
-                Mat frame;
-
-                while ((frame = vc.QuerySmallFrame()) != null && !IsDisposed && !disconnectCamera)
-                {
-                    lastFrame?.Dispose();
-                    lastFrame = frame.ToUMat(AccessType.Fast);
-                    frame.Dispose();
-
-                    draw_face_box(lastFrame, 1.1, 10);
-
-                    try
-                    {
-                        imageBoxCamera.Image = lastFrame;
-                    }
-                    catch (Exception f)
-                    { }
-                }
-                lastFrame?.Dispose();
-                vc.Stop();
-                vc.Dispose();
-                if (!IsDisposed)
-                {
-                    imageBoxCamera.Image = null;
-                    BeginInvoke((MethodInvoker)(() =>
-                    {
-                        labelNoConnection.Visible = true;
-                    }));
-                }
-            }).Start();
-
-            disconnectCamera = false;
-            isConnectedCamera = true;
-
-            labelNoConnection.Visible = false;
-
-            
-        }
-
         private void draw_face_box(UMat source, double scale, int sensitivity)
         {
             var adjustment = new RectangleF(1f / 8, 1f / 8, 6f / 8, 6f / 8);
@@ -476,10 +416,14 @@ namespace Sentry_Manual
             {
                 disconnectCamera = true;
                 isConnectedCamera = false;
+
+                buttonActivateCamera.Text = "Connect";
             }
             else
             {
                 create_camera_thread();
+
+                buttonActivateCamera.Text = "Disconnect";
             }
         }
 
@@ -487,15 +431,79 @@ namespace Sentry_Manual
 
         private void comboBoxCamera_SelectedIndexChanged(object sender, EventArgs e)
         {
-            cameraNumber = comboBoxCamera.SelectedIndex;
+            if (cameraNumber != comboBoxCamera.SelectedIndex)
+            {
+                cameraNumber = comboBoxCamera.SelectedIndex;
+
+                disconnectCamera = true;
+                isConnectedCamera = false;
+
+                buttonActivateCamera.Text = "Connect";
+            }
         }
 
-        private void comboBoxCameraResolutions_SelectedIndexChanged(object sender, EventArgs e)
+        void create_camera_thread()
         {
-            disconnectCamera = true;
-            isConnectedCamera = false;
+            new Thread(() =>
+            {
+                var vc = new Capture(cameraNumber);
 
-            create_camera_thread();
+                if (!IsDisposed)
+                {
+                    imageBoxCamera.Image = null;
+                    BeginInvoke((MethodInvoker)(() =>
+                    {
+                        horizontalRes = vc.Width / 2;
+                        imageBoxCamera.Width = horizontalRes;
+                        verticalRes = vc.Height / 2;
+                        imageBoxCamera.Height = verticalRes;
+
+                        //MessageBox.Show(horizontalRes.ToString() + " " + verticalRes.ToString());
+
+                        buttonActivateCamera.Text = "Disconnect";
+                    }));
+                }
+                else
+                {
+                    buttonActivateCamera.Text = "Connect";
+                }
+
+                int totalFrames = (int)vc.GetCaptureProperty(CapProp.FrameCount);
+                UMat lastFrame = null;
+                Mat frame;
+
+                while ((frame = vc.QuerySmallFrame()) != null && !IsDisposed && !disconnectCamera)
+                {
+                    lastFrame?.Dispose();
+                    lastFrame = frame.ToUMat(AccessType.Fast);
+                    frame.Dispose();
+
+                    draw_face_box(lastFrame, 1.1, 10);
+
+                    try
+                    {
+                        imageBoxCamera.Image = lastFrame;
+                    }
+                    catch (Exception f)
+                    { }
+                }
+                lastFrame?.Dispose();
+                vc.Stop();
+                vc.Dispose();
+                if (!IsDisposed)
+                {
+                    imageBoxCamera.Image = null;
+                    BeginInvoke((MethodInvoker)(() =>
+                    {
+                        labelNoConnection.Visible = true;
+                    }));
+                }
+            }).Start();
+
+            disconnectCamera = false;
+            isConnectedCamera = true;
+
+            labelNoConnection.Visible = false;
         }
     }
 
