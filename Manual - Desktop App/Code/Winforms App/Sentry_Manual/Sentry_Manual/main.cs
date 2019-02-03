@@ -146,7 +146,7 @@ namespace Sentry_Manual
                         verticalRes = vc.Height / 2;
                         imageBoxCamera.Height = verticalRes;
 
-                        MessageBox.Show(horizontalRes.ToString() + " " + verticalRes.ToString());
+                        //MessageBox.Show(horizontalRes.ToString() + " " + verticalRes.ToString());
                     }));
                 }
 
@@ -186,6 +186,8 @@ namespace Sentry_Manual
             isConnectedCamera = true;
 
             labelNoConnection.Visible = false;
+
+            
         }
 
         private void draw_face_box(UMat source, double scale, int sensitivity)
@@ -206,7 +208,7 @@ namespace Sentry_Manual
                         //CvInvoke.CvtColor(resizedOverlay, addableOverlay, ColorConversion.Bgra2Bgr);
 
                         CvInvoke.Rectangle(source, adjusted, new MCvScalar(255,0,0,255), 2,LineType.EightConnected, 0);
-                        CvInvoke.Line(source, new Point(0, 0), new Point(face.X + face.Width/2, face.Y + face.Width/2), new MCvScalar(255, 0, 0, 255), 2, LineType.EightConnected, 0);
+                        CvInvoke.Line(source, new Point(horizontalRes/2, verticalRes/2), new Point(face.X + face.Width/2, face.Y + face.Width/2), new MCvScalar(255, 0, 0, 255), 2, LineType.EightConnected, 0);
                         //using (var overlayAlphaChannel = new UMat())
                         //{
                         //    CvInvoke.ExtractChannel(resizedOverlay, overlayAlphaChannel, 3);
