@@ -41,3 +41,4 @@ C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Manual - Desktop App\Co
 C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Manual - Desktop App\Code\Winforms App\Sentry_Manual\Sentry_Manual\obj\Release\Sentry_Manual.csproj.CopyComplete
 C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Manual - Desktop App\Code\Winforms App\Sentry_Manual\Sentry_Manual\obj\Release\Sentry_Manual.exe
 C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Manual - Desktop App\Code\Winforms App\Sentry_Manual\Sentry_Manual\obj\Release\Sentry_Manual.pdb
+C:\Users\Jonathan\Documents\GitHub\face_detecting_turret\Manual - Desktop App\Code\Winforms App\Sentry_Manual\Sentry_Manual\obj\Release\Sentry_Manual.csprojAssemblyReference.cache

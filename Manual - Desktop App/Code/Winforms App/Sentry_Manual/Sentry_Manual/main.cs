@@ -43,6 +43,9 @@ namespace Sentry_Manual
         //Turret variables
         int speed = 30;//Initial value reflected in scroll bar
 
+        int commandX = 0;//Face tracking command
+        int commandY = 0;
+
         bool upKeyHold = false;
         bool downKeyHold = false;
         bool leftKeyHold = false;
@@ -135,36 +138,63 @@ namespace Sentry_Manual
             var adjustment = new RectangleF(1f / 8, 1f / 8, 6f / 8, 6f / 8);
             var faces = classifier.DetectMultiScale(source, scale, sensitivity, Size.Empty);
 
-            foreach (var face in faces)
+            if (faces.Length == 0)
             {
-                Rectangle adjusted = new Rectangle(
-                    (int)(face.X + face.Width * adjustment.X), (int)(face.Y + face.Height * adjustment.Y),
-                    (int)(face.Width * adjustment.Width), (int)(face.Height * adjustment.Height));
-
-                using (var resizedOverlay = new UMat())
+                if (!IsDisposed)//No face detected
                 {
-                    using (var addableOverlay = new UMat())
+                    BeginInvoke((MethodInvoker)(() =>
                     {
-                        //CvInvoke.CvtColor(resizedOverlay, addableOverlay, ColorConversion.Bgra2Bgr);
-
-                        CvInvoke.Rectangle(source, adjusted, new MCvScalar(255,0,0,255), 2,LineType.EightConnected, 0);
-                        CvInvoke.Line(source, new Point(horizontalRes/2, verticalRes/2), new Point(face.X + face.Width/2, face.Y + face.Width/2), new MCvScalar(255, 0, 0, 255), 2, LineType.EightConnected, 0);
-                        //using (var overlayAlphaChannel = new UMat())
-                        //{
-                        //    CvInvoke.ExtractChannel(resizedOverlay, overlayAlphaChannel, 3);
-
-                        //    using (var roi = new UMat(source, adjusted))
-                        //    {
-                        //        var k = adjusted.Width / 8;
-                        //        if (k % 2 == 0) k++;
-                        //        CvInvoke.GaussianBlur(roi, roi, new Size(k, k), 0, 0, BorderType.Reflect101);
-                        //        roi.SetTo(new MCvScalar(0, 0, 0), overlayAlphaChannel);
-                        //        CvInvoke.Add(roi, addableOverlay, roi, overlayAlphaChannel);
-                        //    }
-                        //}
-                    }
+                        //Update label values
+                        labelFaceCoordinate.Text = "Face: undetected";
+                        labelTurretCommand.Text = "Turret Command: none";
+                    }));
                 }
             }
+            else
+                foreach (var face in faces)
+                {
+                    Rectangle adjusted = new Rectangle(
+                        (int)(face.X + face.Width * adjustment.X), (int)(face.Y + face.Height * adjustment.Y),
+                        (int)(face.Width * adjustment.Width), (int)(face.Height * adjustment.Height));
+
+                    using (var resizedOverlay = new UMat())
+                    {
+                        using (var addableOverlay = new UMat())
+                        {
+                            //CvInvoke.CvtColor(resizedOverlay, addableOverlay, ColorConversion.Bgra2Bgr);
+
+                            CvInvoke.Rectangle(source, adjusted, new MCvScalar(255,0,0,255), 2,LineType.EightConnected, 0);
+                            CvInvoke.Line(source, new Point(horizontalRes/2, verticalRes/2), new Point(face.X + face.Width/2, face.Y + face.Width/2), new MCvScalar(0, 255, 0, 255), 2, LineType.EightConnected, 0);
+
+                            if (!IsDisposed)
+                            {
+                                BeginInvoke((MethodInvoker)(() =>
+                                {
+                                    //Update label values
+                                    labelFaceCoordinate.Text = "Face: " + (face.X + face.Width / 2).ToString() + " " + (face.Y + face.Height / 2).ToString();
+
+                                    commandX = Convert.ToInt32((((face.X + face.Width / 2) - (horizontalRes / 2)) / Convert.ToDouble((imageBoxCamera.Width/2))) * 100);
+                                    commandY = Convert.ToInt32((((verticalRes / 2) - (face.Y + face.Height / 2)) / Convert.ToDouble((imageBoxCamera.Height / 2))) * 100);
+                                    labelTurretCommand.Text = "Turret Command: " + commandX.ToString() + " " + commandY.ToString();
+                                }));
+                            }
+
+                            //using (var overlayAlphaChannel = new UMat())
+                            //{
+                            //    CvInvoke.ExtractChannel(resizedOverlay, overlayAlphaChannel, 3);
+
+                            //    using (var roi = new UMat(source, adjusted))
+                            //    {
+                            //        var k = adjusted.Width / 8;
+                            //        if (k % 2 == 0) k++;
+                            //        CvInvoke.GaussianBlur(roi, roi, new Size(k, k), 0, 0, BorderType.Reflect101);
+                            //        roi.SetTo(new MCvScalar(0, 0, 0), overlayAlphaChannel);
+                            //        CvInvoke.Add(roi, addableOverlay, roi, overlayAlphaChannel);
+                            //    }
+                            //}
+                        }
+                    }
+                }
         }
 
         private void buttonConnect_Click(object sender, EventArgs e)
@@ -417,12 +447,18 @@ namespace Sentry_Manual
                 disconnectCamera = true;
                 isConnectedCamera = false;
 
+                //Update button text
                 buttonActivateCamera.Text = "Connect";
+
+                //Update label values
+                labelFaceCoordinate.Text = "Face: undetected";
+                labelTurretCommand.Text = "Turret Command: none";
             }
             else
             {
                 create_camera_thread();
 
+                //Update button text
                 buttonActivateCamera.Text = "Disconnect";
             }
         }
@@ -433,12 +469,17 @@ namespace Sentry_Manual
         {
             if (cameraNumber != comboBoxCamera.SelectedIndex)
             {
-                cameraNumber = comboBoxCamera.SelectedIndex;
-
                 disconnectCamera = true;
                 isConnectedCamera = false;
 
+                //Update button text
                 buttonActivateCamera.Text = "Connect";
+
+                //Update label values
+                labelFaceCoordinate.Text = "Face: undetected";
+                labelTurretCommand.Text = "Turret Command: none";
+
+                cameraNumber = comboBoxCamera.SelectedIndex;
             }
         }
 
@@ -454,11 +495,15 @@ namespace Sentry_Manual
                     BeginInvoke((MethodInvoker)(() =>
                     {
                         horizontalRes = vc.Width / 2;
-                        imageBoxCamera.Width = horizontalRes;
+                        imageBoxCamera.Width = horizontalRes - 20;
                         verticalRes = vc.Height / 2;
-                        imageBoxCamera.Height = verticalRes;
+                        imageBoxCamera.Height = verticalRes - 20;
 
-                        //MessageBox.Show(horizontalRes.ToString() + " " + verticalRes.ToString());
+                        this.Height = verticalRes + 230;
+
+                        //Update label locations
+                        labelFaceCoordinate.Location = new Point(imageBoxCamera.Location.X + imageBoxCamera.Width + 12, +labelFaceCoordinate.Location.Y);
+                        labelTurretCommand.Location = new Point(imageBoxCamera.Location.X + imageBoxCamera.Width + 12, +labelTurretCommand.Location.Y);
 
                         buttonActivateCamera.Text = "Disconnect";
                     }));
@@ -472,6 +517,7 @@ namespace Sentry_Manual
                 UMat lastFrame = null;
                 Mat frame;
 
+                //Capture frames
                 while ((frame = vc.QuerySmallFrame()) != null && !IsDisposed && !disconnectCamera)
                 {
                     lastFrame?.Dispose();
