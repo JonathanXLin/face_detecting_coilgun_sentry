@@ -52,7 +52,6 @@
             this.labelNoConnection = new System.Windows.Forms.Label();
             this.labelFaceCoordinate = new System.Windows.Forms.Label();
             this.labelTurretCommand = new System.Windows.Forms.Label();
-            this.labelTest = new System.Windows.Forms.Label();
             this.groupBoxTurretMode = new System.Windows.Forms.GroupBox();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBoxMovement.SuspendLayout();
@@ -156,7 +155,7 @@
             this.groupBoxMovement.Controls.Add(this.buttonUp);
             this.groupBoxMovement.Controls.Add(this.buttonRight);
             this.groupBoxMovement.Controls.Add(this.buttonLeft);
-            this.groupBoxMovement.Location = new System.Drawing.Point(435, 239);
+            this.groupBoxMovement.Location = new System.Drawing.Point(434, 239);
             this.groupBoxMovement.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxMovement.Name = "groupBoxMovement";
             this.groupBoxMovement.Padding = new System.Windows.Forms.Padding(2);
@@ -170,7 +169,7 @@
             this.groupBoxSerialConnection.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxSerialConnection.Controls.Add(this.buttonSerialConnect);
             this.groupBoxSerialConnection.Controls.Add(this.comboBoxPort);
-            this.groupBoxSerialConnection.Location = new System.Drawing.Point(158, 348);
+            this.groupBoxSerialConnection.Location = new System.Drawing.Point(157, 348);
             this.groupBoxSerialConnection.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxSerialConnection.Name = "groupBoxSerialConnection";
             this.groupBoxSerialConnection.Padding = new System.Windows.Forms.Padding(2);
@@ -186,7 +185,7 @@
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonControls);
             this.groupBoxTurretSpeeds.Controls.Add(this.buttonCalibrate);
             this.groupBoxTurretSpeeds.Controls.Add(this.hScrollBarSpeed);
-            this.groupBoxTurretSpeeds.Location = new System.Drawing.Point(158, 239);
+            this.groupBoxTurretSpeeds.Location = new System.Drawing.Point(157, 239);
             this.groupBoxTurretSpeeds.Name = "groupBoxTurretSpeeds";
             this.groupBoxTurretSpeeds.Size = new System.Drawing.Size(265, 104);
             this.groupBoxTurretSpeeds.TabIndex = 11;
@@ -228,7 +227,7 @@
             // comboBoxCamera
             // 
             this.comboBoxCamera.FormattingEnabled = true;
-            this.comboBoxCamera.Location = new System.Drawing.Point(10, 20);
+            this.comboBoxCamera.Location = new System.Drawing.Point(10, 26);
             this.comboBoxCamera.Name = "comboBoxCamera";
             this.comboBoxCamera.Size = new System.Drawing.Size(115, 21);
             this.comboBoxCamera.TabIndex = 13;
@@ -236,7 +235,7 @@
             // 
             // buttonActivateCamera
             // 
-            this.buttonActivateCamera.Location = new System.Drawing.Point(10, 47);
+            this.buttonActivateCamera.Location = new System.Drawing.Point(10, 55);
             this.buttonActivateCamera.Name = "buttonActivateCamera";
             this.buttonActivateCamera.Size = new System.Drawing.Size(115, 28);
             this.buttonActivateCamera.TabIndex = 14;
@@ -249,11 +248,11 @@
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.Controls.Add(this.buttonActivateCamera);
             this.groupBox1.Controls.Add(this.comboBoxCamera);
-            this.groupBox1.Location = new System.Drawing.Point(12, 320);
+            this.groupBox1.Location = new System.Drawing.Point(11, 313);
             this.groupBox1.Margin = new System.Windows.Forms.Padding(2);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBox1.Size = new System.Drawing.Size(135, 86);
+            this.groupBox1.Size = new System.Drawing.Size(135, 93);
             this.groupBox1.TabIndex = 11;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Camera Connection";
@@ -265,7 +264,7 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.imageBoxCamera.Location = new System.Drawing.Point(12, 12);
             this.imageBoxCamera.Name = "imageBoxCamera";
-            this.imageBoxCamera.Size = new System.Drawing.Size(326, 221);
+            this.imageBoxCamera.Size = new System.Drawing.Size(325, 210);
             this.imageBoxCamera.TabIndex = 2;
             this.imageBoxCamera.TabStop = false;
             // 
@@ -296,31 +295,22 @@
             this.labelTurretCommand.TabIndex = 14;
             this.labelTurretCommand.Text = "[FaceCoord]";
             // 
-            // labelTest
-            // 
-            this.labelTest.AutoSize = true;
-            this.labelTest.Location = new System.Drawing.Point(464, 128);
-            this.labelTest.Name = "labelTest";
-            this.labelTest.Size = new System.Drawing.Size(65, 13);
-            this.labelTest.TabIndex = 15;
-            this.labelTest.Text = "[FaceCoord]";
-            // 
             // groupBoxTurretMode
             // 
             this.groupBoxTurretMode.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBoxTurretMode.Controls.Add(this.button1);
-            this.groupBoxTurretMode.Location = new System.Drawing.Point(12, 239);
+            this.groupBoxTurretMode.Location = new System.Drawing.Point(11, 239);
             this.groupBoxTurretMode.Margin = new System.Windows.Forms.Padding(2);
             this.groupBoxTurretMode.Name = "groupBoxTurretMode";
             this.groupBoxTurretMode.Padding = new System.Windows.Forms.Padding(2);
-            this.groupBoxTurretMode.Size = new System.Drawing.Size(135, 77);
+            this.groupBoxTurretMode.Size = new System.Drawing.Size(135, 70);
             this.groupBoxTurretMode.TabIndex = 15;
             this.groupBoxTurretMode.TabStop = false;
             this.groupBoxTurretMode.Text = "Turret Mode";
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(10, 26);
+            this.button1.Location = new System.Drawing.Point(10, 25);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(115, 28);
             this.button1.TabIndex = 14;
@@ -331,9 +321,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(668, 417);
+            this.ClientSize = new System.Drawing.Size(667, 417);
             this.Controls.Add(this.groupBoxTurretMode);
-            this.Controls.Add(this.labelTest);
             this.Controls.Add(this.labelTurretCommand);
             this.Controls.Add(this.labelFaceCoordinate);
             this.Controls.Add(this.labelNoConnection);
@@ -385,7 +374,6 @@
         private System.Windows.Forms.Label labelNoConnection;
         private System.Windows.Forms.Label labelFaceCoordinate;
         private System.Windows.Forms.Label labelTurretCommand;
-        private System.Windows.Forms.Label labelTest;
         private System.Windows.Forms.GroupBox groupBoxTurretMode;
         private System.Windows.Forms.Button button1;
     }

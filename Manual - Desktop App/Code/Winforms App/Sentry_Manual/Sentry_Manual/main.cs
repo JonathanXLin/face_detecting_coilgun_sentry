@@ -146,7 +146,10 @@ namespace Sentry_Manual
                     {
                         //Update label values
                         labelFaceCoordinate.Text = "Face: undetected";
-                        labelTurretCommand.Text = "Turret Command: none";
+
+                        commandX = 0;
+                        commandY = 0;
+                        labelTurretCommand.Text = "Turret Command: " + commandX.ToString() + "x " + commandY.ToString() + "y";
                     }));
                 }
             }
@@ -171,11 +174,11 @@ namespace Sentry_Manual
                                 BeginInvoke((MethodInvoker)(() =>
                                 {
                                     //Update label values
-                                    labelFaceCoordinate.Text = "Face: " + (face.X + face.Width / 2).ToString() + " " + (face.Y + face.Height / 2).ToString();
+                                    labelFaceCoordinate.Text = "Face: " + (face.X + face.Width / 2).ToString() + "x " + (face.Y + face.Height / 2).ToString() + "y";
 
                                     commandX = Convert.ToInt32((((face.X + face.Width / 2) - (horizontalRes / 2)) / Convert.ToDouble((imageBoxCamera.Width/2))) * 100);
                                     commandY = Convert.ToInt32((((verticalRes / 2) - (face.Y + face.Height / 2)) / Convert.ToDouble((imageBoxCamera.Height / 2))) * 100);
-                                    labelTurretCommand.Text = "Turret Command: " + commandX.ToString() + " " + commandY.ToString();
+                                    labelTurretCommand.Text = "Turret Command: " + commandX.ToString() + "x " + commandY.ToString() + "y";
                                 }));
                             }
 
