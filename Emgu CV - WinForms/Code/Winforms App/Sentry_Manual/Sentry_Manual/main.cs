@@ -181,8 +181,8 @@ namespace Sentry_Manual
                                     commandX = Convert.ToInt32((((face.X + face.Width / 2) - (horizontalRes / 2)) / Convert.ToDouble((imageBoxCamera.Width/2))) * -speed);
                                     commandY = Convert.ToInt32((((verticalRes / 2) - (face.Y + face.Height / 2)) / Convert.ToDouble((imageBoxCamera.Height / 2))) * -speed);
 
-                                    int minMotorCutoff = 18;
-                                    int zeroRange = 5;
+                                    int minMotorCutoff = 19;
+                                    int zeroRange = 8;
 
                                     if (commandX < minMotorCutoff && commandX > zeroRange)
                                         commandX = minMotorCutoff;
@@ -299,7 +299,7 @@ namespace Sentry_Manual
             {
                 if (isConnectedSerial)
                 {
-                    serialString = "X" + commandX + "Y" + commandY + "E";
+                    serialString = "X" + (commandX + Globals.xTrim) + "Y" + commandY + "E";
                     port.WriteLine(serialString);
                 }
 
@@ -591,7 +591,7 @@ namespace Sentry_Manual
                     { }
                 }
                 lastFrame?.Dispose();
-                vc.Stop();
+                //vc.Stop();
                 vc.Dispose();
                 if (!IsDisposed)
                 {
