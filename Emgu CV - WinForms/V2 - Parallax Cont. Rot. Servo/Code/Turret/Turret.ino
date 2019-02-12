@@ -24,6 +24,11 @@ void servo_setup()
 }
 
 void loop() {
+  
+}
+
+void SerialEvent()
+{
   loop_function();
 }
 

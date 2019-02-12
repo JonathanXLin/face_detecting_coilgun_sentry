@@ -12,6 +12,11 @@
 # grayscale only is because of the space requirment for the integral image).
 
 import sensor, time, image
+import pyb
+from pyb import Servo
+
+# servo on position 1 (P7)
+servoY = Servo(1)
 
 # Reset sensor
 sensor.reset()
@@ -20,7 +25,7 @@ sensor.reset()
 sensor.set_contrast(1)
 sensor.set_gainceiling(32)
 # HQVGA and GRAYSCALE are the best for face tracking.
-sensor.set_framesize(sensor.QVGA)
+sensor.set_framesize(sensor.HQVGA)
 sensor.set_pixformat(sensor.GRAYSCALE)
 
 # Load Haar Cascade
@@ -30,6 +35,8 @@ print(face_cascade)
 
 # FPS clock
 clock = time.clock()
+
+servoY.pulse_width(1500)
 
 # If face not detected for given number of consecutive retries, stop movement
 consecRetries = 0;
@@ -54,25 +61,13 @@ while (True):
 
     if objects:
         consecRetries = 0
-        print(objects[0][0], " ", objects[0][1])
+        print(objects[0][0]/1.6, " ", (80 - objects[0][1])/0.8)
     else:
         if (consecRetries <= consecRetryLimit):
             print("N/A, consec. retries: ", consecRetries)
             consecRetries += 1
         else:
             print("N/A, consec. retry limit reached")
-
-    # Map face coordinates
-    def translate(value, leftMin, leftMax, rightMin, rightMax):
-        # Figure out how 'wide' each range is
-        leftSpan = leftMax - leftMin
-        rightSpan = rightMax - rightMin
-
-        # Convert the left range into a 0-1 range (float)
-        valueScaled = float(value - leftMin) / float(leftSpan)
-
-        # Convert the 0-1 range into a value in the right range.
-        return rightMin + (valueScaled * rightSpan)
 
     # Print FPS.
     # Note: Actual FPS is higher, streaming the FB makes it slower.
