@@ -1,8 +1,8 @@
 //=============================SERVO================================
 #include <Servo.h>
 
-const int xServoPin = 6;//Horizontal servo
-const int yServoPin = 7;//Vertical servo
+const int xServoPin = 5;//Horizontal servo
+const int yServoPin = 6;//Vertical servo
 
 int xSensitivity = 40;
 int ySensitivity = 40;
@@ -24,7 +24,12 @@ void servo_setup()
 }
 
 void loop() {
-  
+  xServo.write(1000);
+  yServo.write(1000);
+  delay(1000);
+  xServo.write(2000);
+  yServo.write(2000);
+  delay(2000);
 }
 
 void SerialEvent()
