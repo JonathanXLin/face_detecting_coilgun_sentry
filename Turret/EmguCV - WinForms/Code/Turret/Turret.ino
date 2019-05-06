@@ -23,13 +23,9 @@ void servo_setup()
   yServo.attach(yServoPin);
 }
 
-void loop() {
-  xServo.write(1000);
-  yServo.write(1000);
-  delay(1000);
-  xServo.write(2000);
-  yServo.write(2000);
-  delay(2000);
+void loop() 
+{
+  loop_function();
 }
 
 void SerialEvent()
