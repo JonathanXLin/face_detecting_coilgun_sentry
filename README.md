@@ -1,3 +1,9 @@
 # Face Detecting Sentry
 
-Face detecting motorized alt-azimuth coilgun sentry with PID controller, EmguCV facial recognition, desktop app controller, and 4400 uF 350V coilgun. This project is currently in the design and prototyping phase. 
+Face detecting motorized alt-azimuth coilgun sentry with PID controller, EmguCV facial recognition, and desktop app controller.
+
+<br>
+
+<p align="center"> 
+  <img src="https://i.imgur.com/2wQFcx7.jpg" width="400">
+</p>
