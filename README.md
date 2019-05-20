@@ -27,7 +27,7 @@ Interfacing between desktop app and servos is done through a serial connection t
 All components were designed on SolidWorks and 3D printed using PLA.
 
 <p align="center"> 
-  <img src="https://i.imgur.com/QGyq9Oa.png" width="600">
+  <img src="https://i.imgur.com/QGyq9Oa.png" width="400">
 </p>
 
 ## Desktop App
